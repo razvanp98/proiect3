@@ -1,10 +1,11 @@
 package com.razvan.papurica.proiect3.entity;
 
-import org.hibernate.annotations.Fetch;
-import org.hibernate.annotations.FetchMode;
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.List;
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.Table;
+import java.util.HashSet;
+import java.util.Set;
 
 
 @Entity
@@ -14,7 +15,7 @@ public class Pacient {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_pacient")
-    private int id;
+    private Integer id;
 
     @Column(name = "cnp")
     private String cnp;
@@ -37,11 +38,12 @@ public class Pacient {
             CascadeType.DETACH,
             CascadeType.MERGE,
             CascadeType.PERSIST,
-            CascadeType.REFRESH}, fetch = FetchType.EAGER)
+            CascadeType.REFRESH},
+            fetch = FetchType.EAGER)
     @JoinTable(name = "proiect3.medic_pacient",
             joinColumns = @JoinColumn(name = "id_pacient"),
             inverseJoinColumns = @JoinColumn(name = "id_medic"))
-    private List<Medic> medici;
+    private Set<Medic> mediciOfPacient;
 
 
     @ManyToMany(cascade = {
@@ -52,8 +54,7 @@ public class Pacient {
     @JoinTable(name="proiect3.consultatie",
             joinColumns = @JoinColumn(name = "id_pacient"),
             inverseJoinColumns = @JoinColumn(name = "id_medicament"))
-    @Fetch(value = FetchMode.SUBSELECT)
-    private List<Medicament> medicamente;
+    private Set<Medicament> medicamenteOfPacient;
 
     // END Medic mapping
 
@@ -72,11 +73,11 @@ public class Pacient {
 
     // GETTERS AND SETTERS
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -120,43 +121,43 @@ public class Pacient {
         this.asigurat = asigurat;
     }
 
-    public List<Medic> getMedici() {
-        return medici;
+    public Set<Medic> getMedici() {
+        return mediciOfPacient;
     }
 
-    public void setMedici(List<Medic> medici) {
-        this.medici = medici;
+    public void setMedici(Set<Medic> medici) {
+        this.mediciOfPacient = medici;
     }
 
-    public List<Medicament> getMedicamente() {
-        return medicamente;
+    public Set<Medicament> getMedicamente() {
+        return medicamenteOfPacient;
     }
 
-    public void setMedicamente(List<Medicament> medicamente) {
-        this.medicamente = medicamente;
+    public void setMedicamente(Set<Medicament> medicamente) {
+        this.medicamenteOfPacient = medicamente;
     }
 
     // CUSTOM METHODS
 
     public void addMedic(Medic medic) {
-        if (this.medici == null)
-            this.medici = new ArrayList<>();
+        if (this.mediciOfPacient == null)
+            this.mediciOfPacient = new HashSet<>();
 
-        this.medici.add(medic);
+        this.mediciOfPacient.add(medic);
     }
 
     public void removeMedic(Medic medic) {
-        this.medici.removeIf(m -> m.getId() == medic.getId());
+        this.mediciOfPacient.removeIf(m -> m.getId().equals(medic.getId()));
     }
 
     public void addMedicament(Medicament medicament) {
-        if (this.medicamente == null)
-            this.medicamente = new ArrayList<>();
+        if (this.medicamenteOfPacient == null)
+            this.medicamenteOfPacient = new HashSet<>();
 
-        this.medicamente.add(medicament);
+        this.medicamenteOfPacient.add(medicament);
     }
 
     public void removeMedicament(Medicament medicament) {
-        this.medicamente.removeIf(m -> m.getId() == medicament.getId());
+        this.medicamenteOfPacient.removeIf(m -> m.getId() == medicament.getId());
     }
 }

@@ -8,7 +8,7 @@ import org.hibernate.query.Query;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
-import java.util.List;
+import java.util.Set;
 
 @Component("pacientDao")
 @Scope(scopeName = "singleton")
@@ -33,12 +33,12 @@ public class PacientDao implements DaoInterface {
     }
 
     @Override
-    public List read() {
+    public Set<Pacient> read() {
         refresh();
         session.beginTransaction();
 
-        Query pacientQuery = session.createQuery("from Pacient");
-        List pacienti = pacientQuery.getResultList();
+        Query<Pacient> pacientQuery = session.createQuery("from Pacient");
+        Set<Pacient> pacienti = Set.copyOf(pacientQuery.getResultList());
 
         session.close();
         return pacienti;

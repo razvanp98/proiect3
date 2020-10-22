@@ -9,7 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
-import java.util.List;
+import java.util.Set;
 
 @Controller
 @RequestMapping("/medicament")
@@ -27,7 +27,7 @@ public class MedicamentController {
 
     @RequestMapping
     public ModelAndView showMedicamente(ModelAndView model) {
-        List<Medicament> medicamente = medicamentService.getMedicamente();
+        Set<Medicament> medicamente = medicamentService.getMedicamente();
 
         model.addObject("medicamente", medicamente);
         model.setViewName("medicament/medicament-home");

@@ -8,7 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 
-import java.util.List;
+import java.util.Set;
 
 @Component("medicService")
 public class MedicService {
@@ -17,13 +17,13 @@ public class MedicService {
     @Qualifier("medicDao")
     DaoInterface medicDao;
 
-    private List medici;
+    private Set<Medic> medici;
 
     // METHODS
 
     // Show methods
-    public List<Medic> getMedics() {
-        this.medici = medicDao.read();
+    public Set<Medic> getMedics() {
+        this.medici = (Set<Medic>) medicDao.read();
         return this.medici;
     }
 

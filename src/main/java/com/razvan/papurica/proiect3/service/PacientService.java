@@ -10,7 +10,7 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
-import java.util.List;
+import java.util.Set;
 
 @Component("pacientService")
 @Scope(scopeName = "singleton")
@@ -20,13 +20,13 @@ public class PacientService {
     @Qualifier("pacientDao")
     DaoInterface pacientDao;
 
-    private List pacienti;
+    private Set<Pacient> pacienti;
 
     // METHODS
 
     // Show methods
-    public List<Pacient> getPacienti() {
-        this.pacienti = pacientDao.read();
+    public Set<Pacient> getPacienti() {
+        this.pacienti = (Set<Pacient>) pacientDao.read();
         return this.pacienti;
     }
 

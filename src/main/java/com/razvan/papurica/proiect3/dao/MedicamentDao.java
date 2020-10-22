@@ -1,11 +1,12 @@
 package com.razvan.papurica.proiect3.dao;
 
+import com.razvan.papurica.proiect3.entity.Medic;
 import com.razvan.papurica.proiect3.entity.Medicament;
 import org.hibernate.Session;
 import org.hibernate.query.Query;
 import org.springframework.stereotype.Component;
 
-import java.util.List;
+import java.util.Set;
 
 @Component("medicamentDao")
 public class MedicamentDao implements DaoInterface {
@@ -30,12 +31,12 @@ public class MedicamentDao implements DaoInterface {
     }
 
     @Override
-    public List read() {
+    public Set<Medicament> read() {
         refresh();
         session.beginTransaction();
 
-        Query medicamentQuery = session.createQuery("from Medicament");
-        List medicamente = medicamentQuery.getResultList();
+        Query<Medicament> medicamentQuery = session.createQuery("from Medicament");
+        Set<Medicament> medicamente = Set.copyOf(medicamentQuery.getResultList());
 
         session.close();
         return medicamente;
@@ -63,7 +64,13 @@ public class MedicamentDao implements DaoInterface {
 
     @Override
     public void delete(int id) {
+        refresh();
+        session.beginTransaction();
 
+        Medicament targetMedicament = session.get(Medicament.class, id);
+        session.delete(targetMedicament);
+        session.getTransaction().commit();
+        session.close();
     }
 
     @Override

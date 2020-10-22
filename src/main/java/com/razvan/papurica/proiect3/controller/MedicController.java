@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
-import java.util.List;
+import java.util.Set;
 
 @Controller
 public class MedicController {
@@ -33,7 +33,7 @@ public class MedicController {
     @GetMapping("/")
     public ModelAndView showHome(ModelAndView model) {
 
-        List medici = medicService.getMedics();
+        Set<Medic> medici = medicService.getMedics();
 
         model.addObject("medici", medici);
         model.setViewName("medic/medic-home");
@@ -80,7 +80,7 @@ public class MedicController {
     @GetMapping("/MedicLinkPacient")
     public ModelAndView linkPacientToMedic(@RequestParam("medicId") int medicId, ModelAndView model) {
 
-        List pacienti = pacientService.getPacienti();
+        Set<Pacient> pacienti = pacientService.getPacienti();
         Medic targetMedic = (Medic) medicService.getMedicUpdate(medicId);
 
         model.addObject("pacienti", pacienti);

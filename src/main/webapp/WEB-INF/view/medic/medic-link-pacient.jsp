@@ -75,9 +75,5 @@
     </div>
 </div>
 
-<div class="row center" style="margin-top: 60px">
-    <h3 class="promo caption">Medici selectati</h3>
-</div>
-
 </body>
 </html>

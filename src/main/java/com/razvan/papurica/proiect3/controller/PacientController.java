@@ -12,7 +12,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
-import java.util.List;
+import java.util.Set;
 
 @Controller
 @RequestMapping("/pacient")
@@ -36,7 +36,7 @@ public class PacientController {
     @RequestMapping
     public ModelAndView showHome(ModelAndView model) {
 
-        List pacienti = pacientService.getPacienti();
+        Set<Pacient> pacienti = pacientService.getPacienti();
 
         model.addObject("pacienti", pacienti);
         model.setViewName("pacient/pacient-home");
@@ -83,7 +83,7 @@ public class PacientController {
     @GetMapping("PacientLinkMedic")
     public ModelAndView linkMedicToPacient(@RequestParam("pacientId") int pacientId, ModelAndView model) {
 
-        List medici = medicService.getMedics();
+        Set<Medic> medici = medicService.getMedics();
         Pacient targetPacient = (Pacient) pacientService.getPacientUpdate(pacientId);
 
         model.addObject("medici", medici);
@@ -124,7 +124,7 @@ public class PacientController {
     @GetMapping("ViewMedicamenteFromPacient")
     public ModelAndView linkMedicamentToPacient(@RequestParam("pacientId") int pacientId, ModelAndView model) {
         Pacient targetPacient = (Pacient) pacientService.getPacientUpdate(pacientId);
-        List<Medicament> medicamente = medicamentService.getMedicamente();
+        Set<Medicament> medicamente = medicamentService.getMedicamente();
 
         model.addObject("targetPacient", targetPacient);
         model.addObject("medicamente", medicamente);

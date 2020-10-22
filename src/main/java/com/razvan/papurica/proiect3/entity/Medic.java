@@ -1,9 +1,13 @@
 package com.razvan.papurica.proiect3.entity;
 
 import com.sun.istack.NotNull;
+
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.List;
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.Table;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Table(name = "medic", schema = "proiect3")
@@ -12,7 +16,7 @@ public class Medic {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_medic")
-    private int id;
+    private Integer id;
 
     @NotNull
     @Column(name = "nume_medic")
@@ -38,7 +42,7 @@ public class Medic {
     @JoinTable(name = "proiect3.medic_pacient",
                 joinColumns = @JoinColumn(name = "id_medic"),
                 inverseJoinColumns = @JoinColumn(name = "id_pacient"))
-    private List<Pacient> pacienti;
+    private Set<Pacient> pacientiOfMedic;
 
     // END Pacient mapping
 
@@ -54,11 +58,11 @@ public class Medic {
 
     // GETTERS AND SETTERS
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -86,23 +90,23 @@ public class Medic {
         this.specializare = specializare;
     }
 
-    public List<Pacient> getPacienti() {
-        return pacienti;
+    public Set<Pacient> getPacienti() {
+        return pacientiOfMedic;
     }
 
-    public void setPacienti(List<Pacient> pacienti) {
-        this.pacienti = pacienti;
+    public void setPacienti(Set<Pacient> pacienti) {
+        this.pacientiOfMedic = pacienti;
     }
 
     // CUSTOM METHODS
 
     public void addPacient(Pacient pacient) {
-        if(this.pacienti == null)
-            this.pacienti = new ArrayList<>();
-        this.pacienti.add(pacient);
+        if(this.pacientiOfMedic == null)
+            this.pacientiOfMedic = new HashSet<>();
+        this.pacientiOfMedic.add(pacient);
     }
 
     public void removePacient(Pacient pacient) {
-        this.pacienti.removeIf(p -> p.getId() == pacient.getId());
+        this.pacientiOfMedic.removeIf(p -> p.getId().equals(pacient.getId()));
     }
 }

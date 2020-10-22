@@ -6,7 +6,7 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 
-import java.util.List;
+import java.util.Set;
 
 public interface DaoInterface {
 
@@ -27,7 +27,7 @@ public interface DaoInterface {
     // Methods with 'Get' at the end - return Hibernate instance to populate/update database
     // Methods with 'Do' at the end - execute the operation back-scene in Hibernate
 
-    List read();
+    Set<? extends Object> read();
     Object createGet();
     Object updateGet(int id);
     void createDo(Object o);

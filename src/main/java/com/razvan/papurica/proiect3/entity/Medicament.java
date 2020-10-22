@@ -1,10 +1,7 @@
 package com.razvan.papurica.proiect3.entity;
 
-import org.hibernate.annotations.Fetch;
-import org.hibernate.annotations.FetchMode;
-
 import javax.persistence.*;
-import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table(name = "medicament", schema = "proiect3")
@@ -28,16 +25,8 @@ public class Medicament {
     private String date;
 
 
-    @ManyToMany(cascade = {
-            CascadeType.DETACH,
-            CascadeType.MERGE,
-            CascadeType.PERSIST,
-            CascadeType.REFRESH}, fetch = FetchType.EAGER)
-    @JoinTable(name="proiect3.consultatie",
-            joinColumns = @JoinColumn(name = "id_medicament"),
-            inverseJoinColumns = @JoinColumn(name = "id_pacient"))
-    @Fetch(value = FetchMode.SUBSELECT)
-    private List<Pacient> pacienti;
+    @ManyToMany(mappedBy = "medicamenteOfPacient", fetch = FetchType.EAGER)
+    private Set<Pacient> pacienti;
 
     // Constructors
 
@@ -65,11 +54,11 @@ public class Medicament {
         this.denumire = denumire;
     }
 
-    public List getPacienti() {
+    public Set<Pacient> getPacienti() {
         return pacienti;
     }
 
-    public void setPacienti(List pacienti) {
+    public void setPacienti(Set<Pacient> pacienti) {
         this.pacienti = pacienti;
     }
 
