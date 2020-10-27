@@ -36,9 +36,8 @@ public class Medic {
     @ManyToMany(cascade = {
             CascadeType.DETACH,
             CascadeType.MERGE,
-            CascadeType.PERSIST,
-            CascadeType.REFRESH},
-            fetch = FetchType.EAGER)
+            CascadeType.REFRESH,
+            CascadeType.PERSIST}, fetch = FetchType.EAGER)
     @JoinTable(name = "proiect3.medic_pacient",
                 joinColumns = @JoinColumn(name = "id_medic"),
                 inverseJoinColumns = @JoinColumn(name = "id_pacient"))

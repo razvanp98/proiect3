@@ -30,7 +30,7 @@ public class MedicController {
 
     // View mappings
 
-    @GetMapping("/")
+    @GetMapping("/medic")
     public ModelAndView showHome(ModelAndView model) {
 
         Set<Medic> medici = medicService.getMedics();

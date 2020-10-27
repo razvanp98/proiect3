@@ -24,7 +24,6 @@ public class Medicament {
     @Column(name = "date")
     private String date;
 
-
     @ManyToMany(mappedBy = "medicamenteOfPacient", fetch = FetchType.EAGER)
     private Set<Pacient> pacienti;
 

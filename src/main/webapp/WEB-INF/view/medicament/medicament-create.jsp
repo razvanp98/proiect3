@@ -1,3 +1,4 @@
+<%@ page import="com.razvan.papurica.proiect3.security.SecurityAuthorizer" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ taglib prefix="C" uri="http://java.sun.com/jsp/jstl/core" %>
@@ -21,24 +22,41 @@
 
 <body>
 
+<%
+    if(!SecurityAuthorizer.isUserAuthenticated()) {
+        response.sendRedirect("/login");
+    }
+%>
+
 <!-- NAVBAR -->
 <div class="navbar-fixed">
     <nav>
         <div class="nav-wrapper blue darken-3">
-            <a href="/" class="brand-logo left" id="desktop-logo"><span id="top-logo">Medical Dashboard</span></a>
+            <a href="/medic" class="brand-logo left" id="desktop-logo"><span id="top-logo">Medical Dashboard</span></a>
             <ul id="nav-mobile" class="right hide-on-med-and-down">
-                <li><a href="/">Medic</a></li>
+                <li><a href="/medic">Medic</a></li>
                 <li><a href="/pacient">Pacient</a></li>
                 <li class="active"><a href="/medicament">Medicament</a></li>
+                <li><a href="/logout"><i class="material-icons">power_settings_new</i></a></li>
             </ul>
         </div>
     </nav>
 </div>
 
+<% if(SecurityAuthorizer.getUser() != null) {
+%>
+<div class="row center">
+    <p class="promo caption">Logged in as: <span style="font-weight: bold; color: #c62828"><%out.println(SecurityAuthorizer.getUser().getUsername());%>[ ROLE: <%out.println(SecurityAuthorizer.getUser().getRole());%>]</span></p>
+</div>
+
+<% } %>
+
+
 <div class="row center">
     <h3 class="promo caption">Adauga Medicament</h3>
     <a href="/medicament">Go back</a>
 </div>
+
 
 <div class="row center" style="margin-top: 50px">
     <div class="col s8 offset-s2 m10 offset-m1">

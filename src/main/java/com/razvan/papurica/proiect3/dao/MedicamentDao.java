@@ -54,10 +54,10 @@ public class MedicamentDao implements DaoInterface {
     }
 
     @Override
-    public void updateDo(Object pacient) {
+    public void updateDo(Object medicament) {
         refresh();
         session.beginTransaction();
-        session.update(pacient);
+        session.update(medicament);
         session.getTransaction().commit();
         session.close();
     }

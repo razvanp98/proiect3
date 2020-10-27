@@ -34,23 +34,15 @@ public class Pacient {
 
     // Medic mapping - SCHEMA.table resolves the error in Hibernate
 
-    @ManyToMany(cascade = {
-            CascadeType.DETACH,
-            CascadeType.MERGE,
-            CascadeType.PERSIST,
-            CascadeType.REFRESH},
-            fetch = FetchType.EAGER)
-    @JoinTable(name = "proiect3.medic_pacient",
-            joinColumns = @JoinColumn(name = "id_pacient"),
-            inverseJoinColumns = @JoinColumn(name = "id_medic"))
+    @ManyToMany(mappedBy = "pacientiOfMedic", fetch = FetchType.EAGER)
     private Set<Medic> mediciOfPacient;
 
 
     @ManyToMany(cascade = {
             CascadeType.DETACH,
             CascadeType.MERGE,
-            CascadeType.PERSIST,
-            CascadeType.REFRESH}, fetch = FetchType.EAGER)
+            CascadeType.REFRESH,
+            CascadeType.PERSIST}, fetch = FetchType.EAGER)
     @JoinTable(name="proiect3.consultatie",
             joinColumns = @JoinColumn(name = "id_pacient"),
             inverseJoinColumns = @JoinColumn(name = "id_medicament"))

@@ -1,3 +1,4 @@
+<%@ page import="com.razvan.papurica.proiect3.security.SecurityAuthorizer" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <html>
 <head>
@@ -20,19 +21,34 @@
 
 <body>
 
+<%
+    if(!SecurityAuthorizer.isUserAuthenticated()) {
+        response.sendRedirect("/login");
+    }
+%>
+
 <!-- NAVBAR -->
 <div class="navbar-fixed">
     <nav>
         <div class="nav-wrapper blue darken-3">
-            <a href="/" class="brand-logo left" id="desktop-logo"><span id="top-logo">Medical Dashboard</span></a>
+            <a href="/medic" class="brand-logo left" id="desktop-logo"><span id="top-logo">Medical Dashboard</span></a>
             <ul id="nav-mobile" class="right hide-on-med-and-down">
-                <li class="active"><a href="/">Medic</a></li>
+                <li class="active"><a href="/medic">Medic</a></li>
                 <li><a href="/pacient">Pacient</a></li>
                 <li><a href="/medicament">Medicament</a></li>
+                <li><a href="/logout"><i class="material-icons">power_settings_new</i></a></li>
             </ul>
         </div>
     </nav>
 </div>
+
+<% if(SecurityAuthorizer.getUser() != null) {
+%>
+<div class="row center">
+    <p class="promo caption">Logged in as: <span style="font-weight: bold; color: #c62828"><%out.println(SecurityAuthorizer.getUser().getUsername());%>[ ROLE: <%out.println(SecurityAuthorizer.getUser().getRole());%>]</span></p>
+</div>
+
+<% } %>
 
 <div class="row center">
     <h4 class="promo caption">Vezi Pacienti</h4>
@@ -56,7 +72,16 @@
                 <th>Prenume</th>
                 <th>Adresa</th>
                 <th>Asigurat</th>
+
+                <%
+                    if(SecurityAuthorizer.getUser() != null) {
+                        if(SecurityAuthorizer.getUser().getRole().equals("ADMIN")) {
+                %>
+
                 <th>Delete</th>
+
+                <% }} %>
+
             </tr>
             </thead>
 
@@ -69,7 +94,15 @@
                     <td>${temp.prenume}</td>
                     <td>${temp.adresa}</td>
                     <td>${temp.asigurat}</td>
+                    <%
+                        if(SecurityAuthorizer.getUser() != null) {
+                            if(SecurityAuthorizer.getUser().getRole().equals("ADMIN")) {
+
+                    %>
+
                     <td><a href="/UnlinkPacient?pacientId=${temp.id}&medicId=${targetMedic.id}"><button class="btn btn-small red darken-3">Remove</button></a></td>
+
+                    <% } }%>
                 </tr>
             </c:forEach>
             </tbody>

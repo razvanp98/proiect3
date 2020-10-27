@@ -58,7 +58,7 @@ public class MedicDao implements DaoInterface {
     public void updateDo(Object medic) {
         refresh();
         session.beginTransaction();
-        session.update(medic);
+        session.update((Medic) medic);
         session.getTransaction().commit();
         session.close();
     }

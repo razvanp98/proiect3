@@ -1,9 +1,11 @@
 package com.razvan.papurica.proiect3.entity;
 
+import com.razvan.papurica.proiect3.security.SecurityAuthorizer;
+
 import javax.persistence.*;
 
 @Entity
-@Table(name = "user")
+@Table(name = "users")
 public class User {
 
     @Id
@@ -15,7 +17,7 @@ public class User {
     private String username;
 
     @Column(name = "password")
-    private String hashPassword;
+    private String password;
 
     @Column(name = "role")
     private String role;
@@ -24,9 +26,9 @@ public class User {
 
     public User() {}
 
-    public User(String username, String hashPassword) {
+    public User(String username, String password) {
         this.username = username;
-        this.hashPassword = hashPassword;
+        this.password = password;
     }
 
     // GETTERS AND SETTERS
@@ -47,12 +49,12 @@ public class User {
         this.username = username;
     }
 
-    public String getHashPassword() {
-        return hashPassword;
+    public String getPassword() {
+        return password;
     }
 
-    public void setHashPassword(String hashPassword) {
-        this.hashPassword = hashPassword;
+    public void setPassword(String password) {
+        this.password = SecurityAuthorizer.encrypt(password);
     }
 
     public String getRole() {
@@ -60,6 +62,6 @@ public class User {
     }
 
     public void setRole(String role) {
-        this.role = role;
+        this.role = role.replaceAll("\\s+", "").toUpperCase();
     }
 }
