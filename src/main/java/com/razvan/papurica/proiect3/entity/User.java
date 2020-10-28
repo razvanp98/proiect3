@@ -5,7 +5,7 @@ import com.razvan.papurica.proiect3.security.SecurityAuthorizer;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "users")
+@Table(name = "users", schema = "proiect3")
 public class User {
 
     @Id
