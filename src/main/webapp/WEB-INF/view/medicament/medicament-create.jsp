@@ -11,13 +11,14 @@
     <meta http-equiv="Pragma" content="no-cache" />
     <meta http-equiv="Expires" content="0" />
 
-    <title>Medical Dashboard | Adauga Medicament</title>
-
-    <link rel="stylesheet" href="/css/style.css">
+    <title>Medical Dashboard | Medici</title>
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <link rel="stylesheet" href="/css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans&display=swap" rel="stylesheet">
 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 </head>
 
 <body>
@@ -100,7 +101,7 @@
 <script type="text/javascript">
     var dateInput = document.getElementById("date");
     var date = new Date();
-    dateInput.setAttribute("value", date.toLocaleDateString());
+    dateInput.setAttribute("value", date.toDateString() + ", " + date.getHours() + ":" + date.getMinutes());
 </script>
 
 </body>
