@@ -18,4 +18,4 @@ You can create and ADMIN or USER account (USER account cannot delete any records
 
 Once logged in, the following view will appear:
 
-![Main Page](https://imgur.com/aUMhjJg)
+![https://imgur.com/GU18YrL](Main View)
