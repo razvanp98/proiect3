@@ -12,10 +12,10 @@ This application runs on top of JVM with Spring Boot and Hibernate ORM.  Prior t
 
 When running application, the following view should pop up:
 
-![Login Screen](https://imgur.com/GU18YrL)
+[Login Screen](https://imgur.com/GU18YrL)
 
 You can create and ADMIN or USER account (USER account cannot delete any records in dashboard).
 
 Once logged in, the following view will appear:
 
-![https://imgur.com/GU18YrL](Main View)
+[Main Page](https://imgur.com/aUMhjJg)
